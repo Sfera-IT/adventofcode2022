@@ -1,4 +1,5 @@
 use crate::utils;
+use crate::utils::ansi_colors;
 use std::iter::Iterator;
 
 #[derive(Copy, Clone, Debug)]
@@ -76,9 +77,9 @@ pub fn test2() {
         }
 
         if (row_clock - reg_x).abs() <= 1 {
-            print!("#");
+            print!("{}#{}", ansi_colors::BRIGHT_WHITE, ansi_colors::DEFAULT);
         } else {
-            print!(".");
+            print!("{}.{}", ansi_colors::DARK_GRAY, ansi_colors::DEFAULT);
         }
 
         if let ExecPlan::Add(v) = op {
