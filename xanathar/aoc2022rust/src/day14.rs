@@ -1,7 +1,7 @@
 use crate::utils;
-use std::iter::Iterator;
 use bidivec::*;
 use std::cmp;
+use std::iter::Iterator;
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
 enum Cell {
@@ -69,24 +69,20 @@ fn drop_sand(cave: &mut BidiVec<Cell>) -> DropSand {
 
         if cave[(x, y + 1)] == Cell::Empty {
             y += 1;
-        }
-        else if cave[(x - 1, y + 1)] == Cell::Empty {
+        } else if cave[(x - 1, y + 1)] == Cell::Empty {
             x -= 1;
             y += 1;
-        }
-        else if cave[(x + 1, y + 1)] == Cell::Empty {
+        } else if cave[(x + 1, y + 1)] == Cell::Empty {
             x += 1;
             y += 1;
-        }
-        else {
+        } else {
             cave[(x, y)] = Cell::Sand;
             return DropSand::AtRest;
         }
     }
 }
 
-pub fn test1()
-{
+pub fn test1() {
     let mut cave = BidiVec::<Cell>::new();
     cave.resize(1000, 250, Cell::Empty);
 
@@ -103,8 +99,7 @@ pub fn test1()
     println!("Iterations: {}", iterations);
 }
 
-pub fn test2()
-{
+pub fn test2() {
     let mut cave = BidiVec::<Cell>::new();
     cave.resize(1000, 250, Cell::Empty);
 
@@ -112,7 +107,12 @@ pub fn test2()
     for l in lines.iter() {
         trace_line(&mut cave, l);
     }
-    let max_y = lines.iter().flat_map(|v| v.iter()).map(|p| p.1).max().unwrap();
+    let max_y = lines
+        .iter()
+        .flat_map(|v| v.iter())
+        .map(|p| p.1)
+        .max()
+        .unwrap();
 
     trace_line(&mut cave, &[(0, max_y + 2), (999, max_y + 2)]);
 
