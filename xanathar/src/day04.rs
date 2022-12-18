@@ -34,7 +34,7 @@ impl Assignment {
 }
 
 pub fn test1() {
-    let ass = utils::parse_lines("../data/day4.txt", Assignment::parse);
+    let ass = utils::parse_lines("./data/day4.txt", Assignment::parse);
 
     println!(
         "Count: {}",
@@ -43,7 +43,7 @@ pub fn test1() {
 }
 
 pub fn test2() {
-    let ass = utils::parse_lines("../data/day4.txt", Assignment::parse);
+    let ass = utils::parse_lines("./data/day4.txt", Assignment::parse);
 
     println!(
         "Count: {}",

@@ -1,81 +1,10 @@
 #![allow(clippy::needless_range_loop)]
 #![allow(clippy::too_many_arguments)]
 
+use crate::data::day16data;
+
 use std::collections::{HashMap, VecDeque};
 use std::iter::Iterator;
-
-fn test_input() -> Vec<Valve> {
-    #![allow(dead_code)]
-    vec![
-        Valve::new("AA", 0, 0, &[3, 8, 1]),
-        Valve::new("BB", 1, 13, &[2, 0]),
-        Valve::new("CC", 2, 2, &[3, 1]),
-        Valve::new("DD", 3, 20, &[2, 0, 4]),
-        Valve::new("EE", 4, 3, &[5, 3]),
-        Valve::new("FF", 5, 0, &[4, 6]),
-        Valve::new("GG", 6, 0, &[5, 7]),
-        Valve::new("HH", 7, 22, &[6]),
-        Valve::new("II", 8, 0, &[0, 9]),
-        Valve::new("JJ", 9, 21, &[8]),
-    ]
-}
-
-fn real_input() -> Vec<Valve> {
-    #![allow(dead_code)]
-    vec![
-        Valve::new("AA", 0, 0, &[9, 41, 27, 29, 30]),
-        Valve::new("GS", 1, 0, &[50, 46]),
-        Valve::new("CB", 2, 0, &[46, 25]),
-        Valve::new("TP", 3, 0, &[17, 31]),
-        Valve::new("FI", 4, 3, &[26, 40, 49, 9, 34]),
-        Valve::new("WV", 5, 0, &[31, 24]),
-        Valve::new("EA", 6, 16, &[30, 15, 35]),
-        Valve::new("AT", 7, 9, &[49, 36]),
-        Valve::new("WS", 8, 0, &[46, 16]),
-        Valve::new("MP", 9, 0, &[0, 4]),
-        Valve::new("GE", 10, 0, &[35, 32]),
-        Valve::new("SA", 11, 10, &[12, 44, 16, 29, 13]),
-        Valve::new("NI", 12, 0, &[11, 38]),
-        Valve::new("GO", 13, 0, &[31, 11]),
-        Valve::new("IT", 14, 0, &[45, 50]),
-        Valve::new("NG", 15, 0, &[6, 22]),
-        Valve::new("RD", 16, 0, &[11, 8]),
-        Valve::new("LR", 17, 12, &[3, 21]),
-        Valve::new("TO", 18, 22, &[28]),
-        Valve::new("WF", 19, 0, &[48, 23]),
-        Valve::new("YD", 20, 21, &[37]),
-        Valve::new("XR", 21, 0, &[17, 50]),
-        Valve::new("KF", 22, 0, &[46, 15]),
-        Valve::new("OO", 23, 0, &[43, 19]),
-        Valve::new("HG", 24, 0, &[5, 38]),
-        Valve::new("CT", 25, 0, &[38, 2]),
-        Valve::new("DA", 26, 0, &[31, 4]),
-        Valve::new("YY", 27, 0, &[0, 38]),
-        Valve::new("VW", 28, 0, &[18, 36]),
-        Valve::new("RC", 29, 0, &[0, 11]),
-        Valve::new("PL", 30, 0, &[0, 6]),
-        Valve::new("TH", 31, 14, &[13, 5, 41, 26, 3]),
-        Valve::new("QN", 32, 24, &[42, 10]),
-        Valve::new("XE", 33, 0, &[47, 48]),
-        Valve::new("XP", 34, 0, &[4, 44]),
-        Valve::new("AX", 35, 0, &[10, 6]),
-        Valve::new("EM", 36, 0, &[7, 28]),
-        Valve::new("NR", 37, 0, &[20, 39]),
-        Valve::new("YG", 38, 4, &[40, 24, 12, 27, 25]),
-        Valve::new("PM", 39, 0, &[43, 37]),
-        Valve::new("AY", 40, 0, &[38, 4]),
-        Valve::new("GJ", 41, 0, &[0, 31]),
-        Valve::new("LC", 42, 0, &[32, 46]),
-        Valve::new("UD", 43, 17, &[23, 39]),
-        Valve::new("OM", 44, 0, &[34, 11]),
-        Valve::new("WB", 45, 0, &[47, 14]),
-        Valve::new("GW", 46, 11, &[22, 1, 42, 2, 8]),
-        Valve::new("NA", 47, 7, &[45, 33]),
-        Valve::new("XX", 48, 20, &[33, 19]),
-        Valve::new("ZO", 49, 0, &[7, 4]),
-        Valve::new("KB", 50, 8, &[21, 1, 14]),
-    ]
-}
 
 #[derive(Default, Copy, Clone)]
 struct VisitedMask(u64);
@@ -90,7 +19,7 @@ impl VisitedMask {
     }
 }
 
-struct Valve {
+pub struct Valve {
     label: &'static str,
     index: usize,
     flow: u64,
@@ -366,7 +295,7 @@ fn max_flow_junglish(
 }
 
 pub fn test1() {
-    let valves = optimize_graph(real_input()); // 1651 / 1775
+    let valves = optimize_graph(day16data::real_input()); // 1651 / 1775
 
     let mf = max_flow_on(0, &valves, 30, VisitedMask::default(), &mut HashMap::new());
 
@@ -374,7 +303,7 @@ pub fn test1() {
 }
 
 pub fn test2() {
-    let valves = optimize_graph(real_input());
+    let valves = optimize_graph(day16data::real_input());
 
     let mf = max_flow_junglish(
         0,

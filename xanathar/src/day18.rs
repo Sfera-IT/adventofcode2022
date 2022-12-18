@@ -28,7 +28,7 @@ fn bound_box_max(cubes: &[Cube]) -> Cube {
 }
 
 pub fn test1() {
-    let cubes_list = utils::parse_lines("../data/day18.txt", parse_cube);
+    let cubes_list = utils::parse_lines("./data/day18.txt", parse_cube);
 
     let cubes = cubes_list.iter().collect::<HashSet<_>>();
 
@@ -128,7 +128,7 @@ impl std::ops::IndexMut<Cube> for Space {
 }
 
 pub fn test2() {
-    let cubes = utils::parse_lines("../data/day18.txt", parse_cube);
+    let cubes = utils::parse_lines("./data/day18.txt", parse_cube);
 
     let min = bound_box_min(&cubes);
     let max = bound_box_max(&cubes);

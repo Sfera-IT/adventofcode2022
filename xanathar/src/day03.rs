@@ -56,7 +56,7 @@ impl Rucksack {
 }
 
 pub fn test1() {
-    let sacks = utils::parse_lines("../data/day3.txt", Rucksack::parse);
+    let sacks = utils::parse_lines("./data/day3.txt", Rucksack::parse);
 
     let sum: u32 = sacks.iter().map(|s| s.common_items_pri()).sum();
 
@@ -64,7 +64,7 @@ pub fn test1() {
 }
 
 pub fn test2() {
-    let sacks = utils::parse_lines("../data/day3.txt", Rucksack::parse);
+    let sacks = utils::parse_lines("./data/day3.txt", Rucksack::parse);
 
     let mut sum = 0;
 

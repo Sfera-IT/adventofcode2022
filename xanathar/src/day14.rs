@@ -86,7 +86,7 @@ pub fn test1() {
     let mut cave = BidiVec::<Cell>::new();
     cave.resize(1000, 250, Cell::Empty);
 
-    let lines = utils::parse_lines("../data/day14.txt", parse_line);
+    let lines = utils::parse_lines("./data/day14.txt", parse_line);
     for l in lines.iter() {
         trace_line(&mut cave, l);
     }
@@ -103,7 +103,7 @@ pub fn test2() {
     let mut cave = BidiVec::<Cell>::new();
     cave.resize(1000, 250, Cell::Empty);
 
-    let lines = utils::parse_lines("../data/day14.txt", parse_line);
+    let lines = utils::parse_lines("./data/day14.txt", parse_line);
     for l in lines.iter() {
         trace_line(&mut cave, l);
     }

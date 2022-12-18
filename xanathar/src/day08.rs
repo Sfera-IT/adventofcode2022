@@ -3,7 +3,7 @@ use bidivec::*;
 use std::iter::Iterator;
 
 fn load() -> BidiVec<i32> {
-    let lines = utils::read_lines("../data/day8.txt")
+    let lines = utils::read_lines("./data/day8.txt")
         .map(|s| s.as_bytes().to_vec())
         .collect::<Vec<_>>();
 

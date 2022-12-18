@@ -4,7 +4,7 @@ use std::iter::Iterator;
 pub fn test1() {
     let mut elves = vec![0];
 
-    for line in utils::read_lines_with_empties("../data/day1.txt") {
+    for line in utils::read_lines_with_empties("./data/day1.txt") {
         let len = elves.len();
 
         match line.parse::<u32>() {
@@ -19,7 +19,7 @@ pub fn test1() {
 pub fn test2() {
     let mut elves = vec![0];
 
-    for line in utils::read_lines_with_empties("../data/day1.txt") {
+    for line in utils::read_lines_with_empties("./data/day1.txt") {
         let len = elves.len();
 
         match line.parse::<u32>() {

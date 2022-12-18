@@ -37,7 +37,7 @@ enum ExecPlan {
 }
 
 pub fn test1() {
-    let prog = utils::parse_lines("../data/day10.txt", Opcode::parse)
+    let prog = utils::parse_lines("./data/day10.txt", Opcode::parse)
         .iter()
         .flat_map(|o| o.decode())
         .collect::<Vec<_>>();
@@ -62,7 +62,7 @@ pub fn test1() {
 }
 
 pub fn test2() {
-    let prog = utils::parse_lines("../data/day10.txt", Opcode::parse)
+    let prog = utils::parse_lines("./data/day10.txt", Opcode::parse)
         .iter()
         .flat_map(|o| o.decode())
         .collect::<Vec<_>>();

@@ -106,13 +106,13 @@ impl Round {
 }
 
 pub fn test1() {
-    let data = utils::parse_lines("../data/day2.txt", Round::parse);
+    let data = utils::parse_lines("./data/day2.txt", Round::parse);
 
     println!("Score: {}", data.iter().map(|r| r.score()).sum::<u32>());
 }
 
 pub fn test2() {
-    let data = utils::parse_lines("../data/day2.txt", Round::parse2);
+    let data = utils::parse_lines("./data/day2.txt", Round::parse2);
 
     println!("{:?}", data);
 

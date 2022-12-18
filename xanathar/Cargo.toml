@@ -1,0 +1,10 @@
+[package]
+name = "aoc2022_xanathar"
+version = "0.1.0"
+edition = "2021"
+authors = ["xanathar"]
+
+[dependencies]
+regex = "1"
+lazy_static = "1.4"
+bidivec = "0.1.0"

@@ -118,7 +118,7 @@ impl PartialEq for PacketData {
 impl Eq for PacketData {}
 
 pub fn test1() {
-    let packets = utils::parse_lines("../data/day13.txt", PacketData::parse);
+    let packets = utils::parse_lines("./data/day13.txt", PacketData::parse);
     let mut sum = 0;
 
     for i in (0..packets.len()).step_by(2) {
@@ -142,7 +142,7 @@ pub fn test1() {
 }
 
 pub fn test2() {
-    let mut packets = utils::parse_lines("../data/day13.txt", PacketData::parse);
+    let mut packets = utils::parse_lines("./data/day13.txt", PacketData::parse);
     packets.push(PacketData::parse("[[2]]".into()).unwrap());
     packets.push(PacketData::parse("[[6]]".into()).unwrap());
     packets.sort();

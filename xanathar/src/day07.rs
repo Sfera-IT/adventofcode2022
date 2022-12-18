@@ -126,7 +126,7 @@ impl Line {
 }
 
 pub fn test1() {
-    let mut lines = utils::parse_lines("../data/day7.txt", |s| Some(Line::parse(s)))
+    let mut lines = utils::parse_lines("./data/day7.txt", |s| Some(Line::parse(s)))
         .drain(..)
         .collect::<VecDeque<Line>>();
 
@@ -147,7 +147,7 @@ pub fn test2() {
     const FREE: u64 = 30000000;
     const TOTAL: u64 = 70000000;
 
-    let mut lines = utils::parse_lines("../data/day7.txt", |s| Some(Line::parse(s)))
+    let mut lines = utils::parse_lines("./data/day7.txt", |s| Some(Line::parse(s)))
         .drain(..)
         .collect::<VecDeque<Line>>();
 
