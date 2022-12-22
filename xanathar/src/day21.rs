@@ -12,6 +12,7 @@ enum OpType {
 enum Yell {
     Num(i64),
     Op(OpType, String, String),
+    Human,
 }
 
 struct Monkey {
@@ -73,9 +74,10 @@ impl Monkey {
 }
 
 fn resolve_monkey(monkeys: &HashMap<String, Monkey>, name: &str) -> Option<i64> {
-    let Some(m) = monkeys.get(name) else { return None };
+    let Some(m) = monkeys.get(name) else { panic!("Monkey {} not found", name) };
 
     match &m.yell {
+        Yell::Human => None,
         Yell::Num(n) => Some(*n),
         Yell::Op(OpType::Add, op1, op2) => {
             Some(resolve_monkey(monkeys, op1)? + resolve_monkey(monkeys, op2)?)
@@ -92,13 +94,14 @@ fn resolve_monkey(monkeys: &HashMap<String, Monkey>, name: &str) -> Option<i64> 
     }
 }
 
-fn resolve_monkey_inverse(monkeys: &HashMap<String, Monkey>, name: &str, target: i64) -> i64 {
-    if name == "humn" {
-        return target;
-    }
-
+fn resolve_monkey_equation(monkeys: &HashMap<String, Monkey>, name: &str, target: i64) -> i64 {
     let node = monkeys.get(name).expect("node not found");
-    let Yell::Op(op_type, branch1, branch2) = &node.yell else { panic!("name is not an operation") };
+
+    let (op_type, branch1, branch2) = match &node.yell {
+        Yell::Human => return target,
+        Yell::Num(_) => panic!("'{}' is not an operation", name),
+        Yell::Op(op_type, branch1, branch2) => (op_type, branch1, branch2),
+    };
 
     let res1 = resolve_monkey(monkeys, branch1);
     let res2 = resolve_monkey(monkeys, branch2);
@@ -119,7 +122,7 @@ fn resolve_monkey_inverse(monkeys: &HashMap<String, Monkey>, name: &str, target:
         (OpType::Div, false) => op_value / target,
     };
 
-    resolve_monkey_inverse(monkeys, human_branch, human_branch_target)
+    resolve_monkey_equation(monkeys, human_branch, human_branch_target)
 }
 
 pub fn test1() {
@@ -137,15 +140,16 @@ pub fn test2() {
     let mut monkeys = HashMap::new();
 
     for m in utils::parse_lines("./data/day21.txt", Monkey::parse).drain(..) {
-        if m.name != "humn" {
-            monkeys.insert(m.name.clone(), m);
-        }
+        monkeys.insert(m.name.clone(), m);
     }
 
     let root = monkeys.get_mut("root").expect("root not found");
     let Yell::Op(_, branch1, branch2) = &root.yell else { panic!("root is not an operation") };
     root.yell = Yell::Op(OpType::Sub, branch1.clone(), branch2.clone());
 
-    let human_value = resolve_monkey_inverse(&monkeys, "root", 0);
+    let humn = monkeys.get_mut("humn").expect("humn not found");
+    humn.yell = Yell::Human;
+
+    let human_value = resolve_monkey_equation(&monkeys, "root", 0);
     println!("HUMN: {}", human_value);
 }
