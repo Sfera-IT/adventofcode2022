@@ -76,12 +76,7 @@ impl Space {
     pub fn new(min: Cube, max: Cube) -> Self {
         let range = (max.0 - min.0 + 1, max.1 - min.1 + 1, max.2 - min.2 + 1);
 
-        Self {
-            min,
-            max,
-            range,
-            vec: vec![Matter::Air; (range.0 * range.1 * range.2) as usize],
-        }
+        Self { min, max, range, vec: vec![Matter::Air; (range.0 * range.1 * range.2) as usize] }
     }
 
     fn calc_index(&self, c: Cube) -> Option<usize> {

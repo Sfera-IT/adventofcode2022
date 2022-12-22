@@ -26,12 +26,7 @@ fn result_print(
     if !resmap[(x, y)].in_shortest_path {
         print!("{}", map[(x, y)] as char);
     } else {
-        print!(
-            "{}{}{}",
-            ansi_colors::BRIGHT_RED,
-            map[(x, y)] as char,
-            ansi_colors::DEFAULT
-        );
+        print!("{}{}{}", ansi_colors::BRIGHT_RED, map[(x, y)] as char, ansi_colors::DEFAULT);
     }
 }
 
@@ -50,13 +45,9 @@ pub fn test1() {
         .find_map(|(x, y, t)| if *t == b'E' { Some((x, y)) } else { None })
         .unwrap();
 
-    let res = pathfind_to_dest(
-        &map,
-        start,
-        dest,
-        BidiNeighbours::Adjacent,
-        |from, _, to, _| cost_func(*from, *to),
-    )
+    let res = pathfind_to_dest(&map, start, dest, BidiNeighbours::Adjacent, |from, _, to, _| {
+        cost_func(*from, *to)
+    })
     .unwrap();
 
     if let PathFindDataResult::ShortestPathFound(cost) = res.result {
@@ -90,13 +81,15 @@ pub fn test2() {
     let min = map
         .iter()
         .with_coords()
-        .filter_map(|(x, y, t)| {
-            if *t == b'S' || *t == b'a' {
-                res.tiles[(x, y)].cost
-            } else {
-                None
-            }
-        })
+        .filter_map(
+            |(x, y, t)| {
+                if *t == b'S' || *t == b'a' {
+                    res.tiles[(x, y)].cost
+                } else {
+                    None
+                }
+            },
+        )
         .min();
 
     println!("Path cost: {:?}", min);

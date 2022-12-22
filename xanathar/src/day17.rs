@@ -42,10 +42,7 @@ struct Cave {
 
 impl Cave {
     pub fn new() -> Self {
-        Self {
-            map: BidiVec::new(),
-            fallen_rocks: 0,
-        }
+        Self { map: BidiVec::new(), fallen_rocks: 0 }
     }
 
     pub fn state(&self, input_idx: usize) -> CaveState {
@@ -55,11 +52,7 @@ impl Cave {
 
         for x in 0..7 {
             for dy in 0..y_bottom {
-                let tile = self
-                    .map
-                    .get(x, y_bottom - dy)
-                    .copied()
-                    .unwrap_or(Tile::Void);
+                let tile = self.map.get(x, y_bottom - dy).copied().unwrap_or(Tile::Void);
                 if tile == Tile::Wall {
                     b[x] = dy;
                     break;
@@ -402,11 +395,7 @@ pub fn test2() {
                 let remaining_rounds = (1_000_000_000_000 - base) % divider;
 
                 println!("{} rounds remaining", remaining_rounds);
-                println!(
-                    "{} bottoms @ round {}",
-                    bottoms_to,
-                    1_000_000_000_000 - remaining_rounds
-                );
+                println!("{} bottoms @ round {}", bottoms_to, 1_000_000_000_000 - remaining_rounds);
                 println!("{} <- current bottom", cave.calc_bottom());
 
                 result = Some(bottoms_to);

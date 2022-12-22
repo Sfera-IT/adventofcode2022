@@ -16,10 +16,7 @@ impl Assignment {
         let n3 = parts[2].parse::<u32>().unwrap();
         let n4 = parts[3].parse::<u32>().unwrap();
 
-        Some(Assignment {
-            ass1: n1..=n2,
-            ass2: n3..=n4,
-        })
+        Some(Assignment { ass1: n1..=n2, ass2: n3..=n4 })
     }
 
     pub fn is_total_contained(&self) -> bool {
@@ -36,17 +33,11 @@ impl Assignment {
 pub fn test1() {
     let ass = utils::parse_lines("./data/day4.txt", Assignment::parse);
 
-    println!(
-        "Count: {}",
-        ass.iter().filter(|a| a.is_total_contained()).count()
-    );
+    println!("Count: {}", ass.iter().filter(|a| a.is_total_contained()).count());
 }
 
 pub fn test2() {
     let ass = utils::parse_lines("./data/day4.txt", Assignment::parse);
 
-    println!(
-        "Count: {}",
-        ass.iter().filter(|a| a.is_any_contained()).count()
-    );
+    println!("Count: {}", ass.iter().filter(|a| a.is_any_contained()).count());
 }

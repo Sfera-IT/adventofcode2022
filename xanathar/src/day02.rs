@@ -80,10 +80,7 @@ impl Round {
             return None;
         }
 
-        Some(Round {
-            play: Shape::from_byte(bytes[0]),
-            resp: Shape::from_byte(bytes[2]),
-        })
+        Some(Round { play: Shape::from_byte(bytes[0]), resp: Shape::from_byte(bytes[2]) })
     }
 
     fn parse2(s: String) -> Option<Self> {
@@ -94,10 +91,7 @@ impl Round {
 
         let play = Shape::from_byte(bytes[0]);
 
-        Some(Round {
-            play,
-            resp: Shape::from_byte_and_play(bytes[2], play),
-        })
+        Some(Round { play, resp: Shape::from_byte_and_play(bytes[2], play) })
     }
 
     pub fn score(&self) -> u32 {

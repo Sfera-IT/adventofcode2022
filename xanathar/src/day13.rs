@@ -125,13 +125,7 @@ pub fn test1() {
         let index = i / 2 + 1;
         let res = packets[i].cmp(&packets[i + 1]);
 
-        println!(
-            "[{}] Comparing {} with {} ==> {:?}",
-            index,
-            packets[i],
-            packets[i + 1],
-            res
-        );
+        println!("[{}] Comparing {} with {} ==> {:?}", index, packets[i], packets[i + 1], res);
 
         if res != Ordering::Greater {
             sum += index;
@@ -150,20 +144,10 @@ pub fn test2() {
     let div2 = PacketData::parse("[[2]]".into()).unwrap();
     let div6 = PacketData::parse("[[6]]".into()).unwrap();
 
-    let div2idx = packets
-        .iter()
-        .enumerate()
-        .find(|(_, v)| *v == &div2)
-        .map(|(i, _)| i)
-        .unwrap()
-        + 1;
-    let div6idx = packets
-        .iter()
-        .enumerate()
-        .find(|(_, v)| *v == &div6)
-        .map(|(i, _)| i)
-        .unwrap()
-        + 1;
+    let div2idx =
+        packets.iter().enumerate().find(|(_, v)| *v == &div2).map(|(i, _)| i).unwrap() + 1;
+    let div6idx =
+        packets.iter().enumerate().find(|(_, v)| *v == &div6).map(|(i, _)| i).unwrap() + 1;
 
     println!("RESULT: {} * {} == {}", div2idx, div6idx, div2idx * div6idx);
 }

@@ -3,15 +3,13 @@ use bidivec::*;
 use std::iter::Iterator;
 
 fn load() -> BidiVec<i32> {
-    let lines = utils::read_lines("./data/day8.txt")
-        .map(|s| s.as_bytes().to_vec())
-        .collect::<Vec<_>>();
+    let lines =
+        utils::read_lines("./data/day8.txt").map(|s| s.as_bytes().to_vec()).collect::<Vec<_>>();
 
     let mut bv = BidiVec::<i32>::new();
 
     for line in lines.iter() {
-        bv.push_row(line.iter().map(|b| (*b - b'0') as i32))
-            .unwrap();
+        bv.push_row(line.iter().map(|b| (*b - b'0') as i32)).unwrap();
     }
 
     bv
@@ -22,26 +20,10 @@ pub fn test1() {
     let mut count = 0;
 
     for (x, y, i) in map.iter().with_coords() {
-        let hw = map
-            .iter()
-            .on_column(x)
-            .with_coords()
-            .any(|(_, yj, j)| yj > y && *j >= *i);
-        let he = map
-            .iter()
-            .on_column(x)
-            .with_coords()
-            .any(|(_, yj, j)| yj < y && *j >= *i);
-        let hs = map
-            .iter()
-            .on_row(y)
-            .with_coords()
-            .any(|(xj, _, j)| xj > x && *j >= *i);
-        let hn = map
-            .iter()
-            .on_row(y)
-            .with_coords()
-            .any(|(xj, _, j)| xj < x && *j >= *i);
+        let hw = map.iter().on_column(x).with_coords().any(|(_, yj, j)| yj > y && *j >= *i);
+        let he = map.iter().on_column(x).with_coords().any(|(_, yj, j)| yj < y && *j >= *i);
+        let hs = map.iter().on_row(y).with_coords().any(|(xj, _, j)| xj > x && *j >= *i);
+        let hn = map.iter().on_row(y).with_coords().any(|(xj, _, j)| xj < x && *j >= *i);
 
         if !hw || !he || !hs || !hn {
             count += 1;

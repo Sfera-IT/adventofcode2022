@@ -43,11 +43,7 @@ impl Rucksack {
     }
 
     pub fn common_items_pri(&self) -> u32 {
-        self.comp1
-            .intersection(&self.comp2)
-            .into_iter()
-            .map(|i| i.to_priority())
-            .sum()
+        self.comp1.intersection(&self.comp2).into_iter().map(|i| i.to_priority()).sum()
     }
 
     pub fn intersect_with(&self, o: &Compartment) -> Compartment {

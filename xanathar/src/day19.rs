@@ -16,12 +16,7 @@ impl Blueprint {
         obsidian_cost: (u32, u32),
         geode_cost: (u32, u32),
     ) -> Self {
-        Self {
-            ore_cost,
-            clay_cost,
-            obsidian_cost,
-            geode_cost,
-        }
+        Self { ore_cost, clay_cost, obsidian_cost, geode_cost }
     }
 }
 
@@ -42,11 +37,8 @@ struct FactoryState {
 
 impl FactoryState {
     pub fn new(time: u32) -> Self {
-        let mut this = Self {
-            robots: Resources::default(),
-            resources: Resources::default(),
-            time_left: time,
-        };
+        let mut this =
+            Self { robots: Resources::default(), resources: Resources::default(), time_left: time };
 
         this.robots.ore = 1;
 

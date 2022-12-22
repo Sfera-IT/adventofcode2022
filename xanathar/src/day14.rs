@@ -107,12 +107,7 @@ pub fn test2() {
     for l in lines.iter() {
         trace_line(&mut cave, l);
     }
-    let max_y = lines
-        .iter()
-        .flat_map(|v| v.iter())
-        .map(|p| p.1)
-        .max()
-        .unwrap();
+    let max_y = lines.iter().flat_map(|v| v.iter()).map(|p| p.1).max().unwrap();
 
     trace_line(&mut cave, &[(0, max_y + 2), (999, max_y + 2)]);
 

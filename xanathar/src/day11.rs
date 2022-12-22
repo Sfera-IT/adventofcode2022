@@ -21,42 +21,21 @@ impl Monkey {
         on_true: usize,
         on_false: usize,
     ) -> Self {
-        Self {
-            items: items.to_vec().into(),
-            inspections: 0,
-            operation,
-            modulus,
-            on_false,
-            on_true,
-        }
+        Self { items: items.to_vec().into(), inspections: 0, operation, modulus, on_false, on_true }
     }
 
     pub fn inspect1(&mut self) -> Option<(u64, usize)> {
         let Some(worry) = self.items.pop_front() else { return None };
         let worry = (self.operation)(worry) / 3;
         self.inspections += 1;
-        Some((
-            worry,
-            if (worry % self.modulus) == 0 {
-                self.on_true
-            } else {
-                self.on_false
-            },
-        ))
+        Some((worry, if (worry % self.modulus) == 0 { self.on_true } else { self.on_false }))
     }
 
     pub fn inspect2(&mut self, common_divisor: u64) -> Option<(u64, usize)> {
         let Some(worry) = self.items.pop_front() else { return None };
         let worry = (self.operation)(worry) % common_divisor;
         self.inspections += 1;
-        Some((
-            worry,
-            if (worry % self.modulus) == 0 {
-                self.on_true
-            } else {
-                self.on_false
-            },
-        ))
+        Some((worry, if (worry % self.modulus) == 0 { self.on_true } else { self.on_false }))
     }
 }
 

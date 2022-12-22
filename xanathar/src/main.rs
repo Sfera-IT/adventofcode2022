@@ -26,8 +26,34 @@ mod day24;
 mod day25;
 mod utils;
 
+use utils::ansi_colors;
+
 fn main() {
     let args: Vec<String> = std::env::args().collect();
+
+    println!(
+        r"
+        {}*{}
+       /.\
+      /{}..\
+      /..{}\
+     /.{}..{}\
+     /...{}.\
+    /..{}....\
+    ^^^{}[_]{}^^^{}
+    ",
+        ansi_colors::BRIGHT_YELLOW,
+        ansi_colors::GREEN,
+        format!("{}o{}", ansi_colors::BRIGHT_RED, ansi_colors::GREEN),
+        format!("{}o{}", ansi_colors::BRIGHT_MAGENTA, ansi_colors::GREEN),
+        format!("{}o{}", ansi_colors::BRIGHT_CYAN, ansi_colors::GREEN),
+        format!("{}o{}", ansi_colors::BRIGHT_YELLOW, ansi_colors::GREEN),
+        format!("{}o{}", ansi_colors::BRIGHT_RED, ansi_colors::GREEN),
+        format!("{}o{}", ansi_colors::BRIGHT_MAGENTA, ansi_colors::GREEN),
+        ansi_colors::YELLOW,
+        ansi_colors::GREEN,
+        ansi_colors::DEFAULT,
+    );
 
     if args.len() < 2 {
         println!("Usage: <day+phase>");

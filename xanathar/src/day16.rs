@@ -29,13 +29,7 @@ pub struct Valve {
 
 impl Valve {
     pub fn new(label: &'static str, index: usize, flow: u64, out: &'static [usize]) -> Self {
-        Self {
-            label,
-            index,
-            flow,
-            out,
-            path_costs: Vec::new(),
-        }
+        Self { label, index, flow, out, path_costs: Vec::new() }
     }
 
     pub fn from_translated(
@@ -54,13 +48,7 @@ impl Valve {
             path_costs[translated_index] = prev_valve.path_costs[i];
         }
 
-        Self {
-            label,
-            index,
-            flow,
-            out,
-            path_costs,
-        }
+        Self { label, index, flow, out, path_costs }
     }
 }
 
@@ -107,12 +95,7 @@ fn optimize_graph(mut valves: Vec<Valve>) -> Vec<Valve> {
         .iter()
         .enumerate()
         .map(|(new_idx, old_idx)| {
-            Valve::from_translated(
-                new_idx,
-                &valves[*old_idx],
-                &translation_map,
-                new_indices.len(),
-            )
+            Valve::from_translated(new_idx, &valves[*old_idx], &translation_map, new_indices.len())
         })
         .collect();
 
@@ -155,10 +138,7 @@ fn max_flow_on(
 ) -> u64 {
     let valve = &valves[index];
     if time_left == 0 {
-        panic!(
-            "Visited {} ({}) with no time_left!",
-            valve.label, valve.flow
-        );
+        panic!("Visited {} ({}) with no time_left!", valve.label, valve.flow);
     }
 
     let memo_item = MemoItem::new_single(index, time_left, visited);
@@ -167,11 +147,7 @@ fn max_flow_on(
         return *c;
     }
 
-    let time_left = if valve.flow > 0 {
-        time_left - 1
-    } else {
-        time_left
-    };
+    let time_left = if valve.flow > 0 { time_left - 1 } else { time_left };
 
     let visited = visited.set(index);
 
@@ -225,29 +201,15 @@ fn max_flow_junglish(
     timeless.insert(memo_item_timeless.flipped(), (e_time_left, h_time_left));
     timeless.insert(memo_item_timeless, (h_time_left, e_time_left));
 
-    let h_local_flow = if visited.already_visited(h_index) || h_time_left == 0 {
-        0
-    } else {
-        h_valve.flow
-    };
+    let h_local_flow =
+        if visited.already_visited(h_index) || h_time_left == 0 { 0 } else { h_valve.flow };
 
-    let e_local_flow = if visited.already_visited(e_index) || e_time_left == 0 {
-        0
-    } else {
-        e_valve.flow
-    };
+    let e_local_flow =
+        if visited.already_visited(e_index) || e_time_left == 0 { 0 } else { e_valve.flow };
 
-    let h_time_left = if h_local_flow > 0 {
-        h_time_left.saturating_sub(1)
-    } else {
-        h_time_left
-    };
+    let h_time_left = if h_local_flow > 0 { h_time_left.saturating_sub(1) } else { h_time_left };
 
-    let e_time_left = if e_local_flow > 0 {
-        e_time_left.saturating_sub(1)
-    } else {
-        e_time_left
-    };
+    let e_time_left = if e_local_flow > 0 { e_time_left.saturating_sub(1) } else { e_time_left };
 
     let visited = visited.set(h_index);
     let visited = visited.set(e_index);

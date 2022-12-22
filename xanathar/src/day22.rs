@@ -111,13 +111,11 @@ impl Map {
             _ => panic!(),
         };
 
-        (
-            c.x + origin.0 * self.cube_size,
-            c.y + origin.1 * self.cube_size,
-        )
+        (c.x + origin.0 * self.cube_size, c.y + origin.1 * self.cube_size)
     }
 
     #[allow(dead_code)]
+    #[cfg_attr(rustfmt, rustfmt_skip)]
     pub fn next_cubic_test(&self, c: CubeCoord, or: Orientation) -> (CubeCoord, Orientation) {
         let last = self.cube_size - 1;
 
@@ -127,111 +125,49 @@ impl Map {
             (Orientation::Down, _, y) if y == last => (),
             (Orientation::Right, x, _) if x == last => (),
             (Orientation::Up, x, y) => return (CubeCoord::new(x, y - 1, c.face), Orientation::Up),
-            (Orientation::Down, x, y) => {
-                return (CubeCoord::new(x, y + 1, c.face), Orientation::Down)
-            }
-            (Orientation::Right, x, y) => {
-                return (CubeCoord::new(x + 1, y, c.face), Orientation::Right)
-            }
-            (Orientation::Left, x, y) => {
-                return (CubeCoord::new(x - 1, y, c.face), Orientation::Left)
-            }
+            (Orientation::Down, x, y) => return (CubeCoord::new(x, y + 1, c.face), Orientation::Down),
+            (Orientation::Right, x, y) => return (CubeCoord::new(x + 1, y, c.face), Orientation::Right),
+            (Orientation::Left, x, y) => return (CubeCoord::new(x - 1, y, c.face), Orientation::Left),
         }
 
         let flip = |c: usize| last - c;
 
         match (c.face, or) {
             // face 1
-            (CubeFace(1), Orientation::Right) => (
-                CubeCoord::new(last, flip(c.y), CubeFace(6)),
-                Orientation::Left,
-            ),
-            (CubeFace(1), Orientation::Down) => {
-                (CubeCoord::new(c.x, 0, CubeFace(4)), Orientation::Down)
-            }
-            (CubeFace(1), Orientation::Left) => {
-                (CubeCoord::new(c.y, 0, CubeFace(3)), Orientation::Down)
-            }
-            (CubeFace(1), Orientation::Up) => {
-                (CubeCoord::new(flip(c.x), 0, CubeFace(2)), Orientation::Down)
-            }
+            (CubeFace(1), Orientation::Right) => (CubeCoord::new(last, flip(c.y), CubeFace(6)), Orientation::Left),
+            (CubeFace(1), Orientation::Down) => (CubeCoord::new(c.x, 0, CubeFace(4)), Orientation::Down),
+            (CubeFace(1), Orientation::Left) => (CubeCoord::new(c.y, 0, CubeFace(3)), Orientation::Down),
+            (CubeFace(1), Orientation::Up) => (CubeCoord::new(flip(c.x), 0, CubeFace(2)), Orientation::Down),
             // face 2
-            (CubeFace(2), Orientation::Right) => {
-                (CubeCoord::new(0, c.y, CubeFace(3)), Orientation::Right)
-            }
-            (CubeFace(2), Orientation::Down) => (
-                CubeCoord::new(flip(c.x), last, CubeFace(5)),
-                Orientation::Up,
-            ),
-            (CubeFace(2), Orientation::Left) => (
-                CubeCoord::new(flip(c.y), last, CubeFace(6)),
-                Orientation::Up,
-            ),
-            (CubeFace(2), Orientation::Up) => {
-                (CubeCoord::new(flip(c.x), 0, CubeFace(1)), Orientation::Down)
-            }
+            (CubeFace(2), Orientation::Right) => (CubeCoord::new(0, c.y, CubeFace(3)), Orientation::Right),
+            (CubeFace(2), Orientation::Down) => (CubeCoord::new(flip(c.x), last, CubeFace(5)), Orientation::Up),
+            (CubeFace(2), Orientation::Left) => (CubeCoord::new(flip(c.y), last, CubeFace(6)), Orientation::Up),
+            (CubeFace(2), Orientation::Up) => (CubeCoord::new(flip(c.x), 0, CubeFace(1)), Orientation::Down),
             // face 3
-            (CubeFace(3), Orientation::Right) => {
-                (CubeCoord::new(0, c.y, CubeFace(4)), Orientation::Right)
-            }
-            (CubeFace(3), Orientation::Down) => (
-                CubeCoord::new(0, flip(c.x), CubeFace(5)),
-                Orientation::Right,
-            ),
-            (CubeFace(3), Orientation::Left) => {
-                (CubeCoord::new(last, c.y, CubeFace(2)), Orientation::Left)
-            }
-            (CubeFace(3), Orientation::Up) => {
-                (CubeCoord::new(0, c.x, CubeFace(1)), Orientation::Right)
-            }
+            (CubeFace(3), Orientation::Right) => (CubeCoord::new(0, c.y, CubeFace(4)), Orientation::Right),
+            (CubeFace(3), Orientation::Down) => (CubeCoord::new(0, flip(c.x), CubeFace(5)), Orientation::Right),
+            (CubeFace(3), Orientation::Left) => (CubeCoord::new(last, c.y, CubeFace(2)), Orientation::Left),
+            (CubeFace(3), Orientation::Up) => (CubeCoord::new(0, c.x, CubeFace(1)), Orientation::Right),
             // face 4
-            (CubeFace(4), Orientation::Right) => {
-                (CubeCoord::new(flip(c.y), 0, CubeFace(6)), Orientation::Down)
-            }
-            (CubeFace(4), Orientation::Down) => {
-                (CubeCoord::new(c.x, 0, CubeFace(5)), Orientation::Down)
-            }
-            (CubeFace(4), Orientation::Left) => {
-                (CubeCoord::new(last, c.y, CubeFace(3)), Orientation::Left)
-            }
-            (CubeFace(4), Orientation::Up) => {
-                (CubeCoord::new(c.x, last, CubeFace(1)), Orientation::Up)
-            }
+            (CubeFace(4), Orientation::Right) => (CubeCoord::new(flip(c.y), 0, CubeFace(6)), Orientation::Down),
+            (CubeFace(4), Orientation::Down) => (CubeCoord::new(c.x, 0, CubeFace(5)), Orientation::Down),
+            (CubeFace(4), Orientation::Left) => (CubeCoord::new(last, c.y, CubeFace(3)), Orientation::Left),
+            (CubeFace(4), Orientation::Up) => (CubeCoord::new(c.x, last, CubeFace(1)), Orientation::Up),
             // face 5
-            (CubeFace(5), Orientation::Right) => {
-                (CubeCoord::new(0, c.y, CubeFace(6)), Orientation::Right)
-            }
-            (CubeFace(5), Orientation::Down) => (
-                CubeCoord::new(flip(c.x), last, CubeFace(2)),
-                Orientation::Up,
-            ),
-            (CubeFace(5), Orientation::Left) => (
-                CubeCoord::new(flip(c.y), last, CubeFace(3)),
-                Orientation::Up,
-            ),
-            (CubeFace(5), Orientation::Up) => {
-                (CubeCoord::new(c.x, last, CubeFace(4)), Orientation::Up)
-            }
+            (CubeFace(5), Orientation::Right) => (CubeCoord::new(0, c.y, CubeFace(6)), Orientation::Right),
+            (CubeFace(5), Orientation::Down) => (CubeCoord::new(flip(c.x), last, CubeFace(2)), Orientation::Up),
+            (CubeFace(5), Orientation::Left) => (CubeCoord::new(flip(c.y), last, CubeFace(3)), Orientation::Up),
+            (CubeFace(5), Orientation::Up) => (CubeCoord::new(c.x, last, CubeFace(4)), Orientation::Up),
             // face 6
-            (CubeFace(6), Orientation::Right) => (
-                CubeCoord::new(last, flip(c.y), CubeFace(1)),
-                Orientation::Left,
-            ),
-            (CubeFace(6), Orientation::Down) => (
-                CubeCoord::new(0, flip(c.x), CubeFace(2)),
-                Orientation::Right,
-            ),
-            (CubeFace(6), Orientation::Left) => {
-                (CubeCoord::new(last, c.y, CubeFace(5)), Orientation::Left)
-            }
-            (CubeFace(6), Orientation::Up) => (
-                CubeCoord::new(last, flip(c.x), CubeFace(4)),
-                Orientation::Left,
-            ),
+            (CubeFace(6), Orientation::Right) => (CubeCoord::new(last, flip(c.y), CubeFace(1)), Orientation::Left),
+            (CubeFace(6), Orientation::Down) => (CubeCoord::new(0, flip(c.x), CubeFace(2)), Orientation::Right),
+            (CubeFace(6), Orientation::Left) => (CubeCoord::new(last, c.y, CubeFace(5)), Orientation::Left),
+            (CubeFace(6), Orientation::Up) => (CubeCoord::new(last, flip(c.x), CubeFace(4)), Orientation::Left),
             _ => panic!(),
         }
     }
 
+    #[cfg_attr(rustfmt, rustfmt_skip)]
     pub fn next_cubic(&self, c: CubeCoord, or: Orientation) -> (CubeCoord, Orientation) {
         let last = self.cube_size - 1;
 
@@ -241,102 +177,44 @@ impl Map {
             (Orientation::Down, _, y) if y == last => (),
             (Orientation::Right, x, _) if x == last => (),
             (Orientation::Up, x, y) => return (CubeCoord::new(x, y - 1, c.face), Orientation::Up),
-            (Orientation::Down, x, y) => {
-                return (CubeCoord::new(x, y + 1, c.face), Orientation::Down)
-            }
-            (Orientation::Right, x, y) => {
-                return (CubeCoord::new(x + 1, y, c.face), Orientation::Right)
-            }
-            (Orientation::Left, x, y) => {
-                return (CubeCoord::new(x - 1, y, c.face), Orientation::Left)
-            }
+            (Orientation::Down, x, y) => return (CubeCoord::new(x, y + 1, c.face), Orientation::Down),
+            (Orientation::Right, x, y) => return (CubeCoord::new(x + 1, y, c.face), Orientation::Right),
+            (Orientation::Left, x, y) => return (CubeCoord::new(x - 1, y, c.face), Orientation::Left),
         }
 
         let flip = |c: usize| last - c;
 
         let (new_c, new_or) = match (c.face, or) {
             // face 1
-            (CubeFace(1), Orientation::Right) => {
-                (CubeCoord::new(0, c.y, CubeFace(2)), Orientation::Right)
-            }
-            (CubeFace(1), Orientation::Down) => {
-                (CubeCoord::new(c.x, 0, CubeFace(3)), Orientation::Down)
-            }
-            (CubeFace(1), Orientation::Left) => (
-                CubeCoord::new(0, flip(c.y), CubeFace(4)),
-                Orientation::Right,
-            ),
-            (CubeFace(1), Orientation::Up) => {
-                (CubeCoord::new(0, c.x, CubeFace(6)), Orientation::Right)
-            }
+            (CubeFace(1), Orientation::Right) => (CubeCoord::new(0, c.y, CubeFace(2)), Orientation::Right),
+            (CubeFace(1), Orientation::Down) => (CubeCoord::new(c.x, 0, CubeFace(3)), Orientation::Down),
+            (CubeFace(1), Orientation::Left) => (CubeCoord::new(0, flip(c.y), CubeFace(4)), Orientation::Right),
+            (CubeFace(1), Orientation::Up) => (CubeCoord::new(0, c.x, CubeFace(6)), Orientation::Right),
             // face 2
-            (CubeFace(2), Orientation::Right) => (
-                CubeCoord::new(last, flip(c.y), CubeFace(5)),
-                Orientation::Left,
-            ),
-            (CubeFace(2), Orientation::Down) => {
-                (CubeCoord::new(last, c.x, CubeFace(3)), Orientation::Left)
-            }
-            (CubeFace(2), Orientation::Left) => {
-                (CubeCoord::new(last, c.y, CubeFace(1)), Orientation::Left)
-            }
-            (CubeFace(2), Orientation::Up) => {
-                (CubeCoord::new(c.x, last, CubeFace(6)), Orientation::Up)
-            }
+            (CubeFace(2), Orientation::Right) => (CubeCoord::new(last, flip(c.y), CubeFace(5)), Orientation::Left),
+            (CubeFace(2), Orientation::Down) => (CubeCoord::new(last, c.x, CubeFace(3)), Orientation::Left),
+            (CubeFace(2), Orientation::Left) => (CubeCoord::new(last, c.y, CubeFace(1)), Orientation::Left),
+            (CubeFace(2), Orientation::Up) => (CubeCoord::new(c.x, last, CubeFace(6)), Orientation::Up),
             // face 3
-            (CubeFace(3), Orientation::Right) => {
-                (CubeCoord::new(c.y, last, CubeFace(2)), Orientation::Up)
-            }
-            (CubeFace(3), Orientation::Down) => {
-                (CubeCoord::new(c.x, 0, CubeFace(5)), Orientation::Down)
-            }
-            (CubeFace(3), Orientation::Left) => {
-                (CubeCoord::new(c.y, 0, CubeFace(4)), Orientation::Down)
-            }
-            (CubeFace(3), Orientation::Up) => {
-                (CubeCoord::new(c.x, last, CubeFace(1)), Orientation::Up)
-            }
+            (CubeFace(3), Orientation::Right) => (CubeCoord::new(c.y, last, CubeFace(2)), Orientation::Up),
+            (CubeFace(3), Orientation::Down) => (CubeCoord::new(c.x, 0, CubeFace(5)), Orientation::Down),
+            (CubeFace(3), Orientation::Left) => (CubeCoord::new(c.y, 0, CubeFace(4)), Orientation::Down),
+            (CubeFace(3), Orientation::Up) => (CubeCoord::new(c.x, last, CubeFace(1)), Orientation::Up),
             // face 4
-            (CubeFace(4), Orientation::Right) => {
-                (CubeCoord::new(0, c.y, CubeFace(5)), Orientation::Right)
-            }
-            (CubeFace(4), Orientation::Down) => {
-                (CubeCoord::new(c.x, 0, CubeFace(6)), Orientation::Down)
-            }
-            (CubeFace(4), Orientation::Left) => (
-                CubeCoord::new(0, flip(c.y), CubeFace(1)),
-                Orientation::Right,
-            ),
-            (CubeFace(4), Orientation::Up) => {
-                (CubeCoord::new(0, c.x, CubeFace(3)), Orientation::Right)
-            }
+            (CubeFace(4), Orientation::Right) => (CubeCoord::new(0, c.y, CubeFace(5)), Orientation::Right),
+            (CubeFace(4), Orientation::Down) => (CubeCoord::new(c.x, 0, CubeFace(6)), Orientation::Down),
+            (CubeFace(4), Orientation::Left) => (CubeCoord::new(0, flip(c.y), CubeFace(1)), Orientation::Right),
+            (CubeFace(4), Orientation::Up) => (CubeCoord::new(0, c.x, CubeFace(3)), Orientation::Right),
             // face 5
-            (CubeFace(5), Orientation::Right) => (
-                CubeCoord::new(last, flip(c.y), CubeFace(2)),
-                Orientation::Left,
-            ),
-            (CubeFace(5), Orientation::Down) => {
-                (CubeCoord::new(last, c.x, CubeFace(6)), Orientation::Left)
-            }
-            (CubeFace(5), Orientation::Left) => {
-                (CubeCoord::new(last, c.y, CubeFace(4)), Orientation::Left)
-            }
-            (CubeFace(5), Orientation::Up) => {
-                (CubeCoord::new(c.x, last, CubeFace(3)), Orientation::Up)
-            }
+            (CubeFace(5), Orientation::Right) => (CubeCoord::new(last, flip(c.y), CubeFace(2)), Orientation::Left),
+            (CubeFace(5), Orientation::Down) => (CubeCoord::new(last, c.x, CubeFace(6)), Orientation::Left),
+            (CubeFace(5), Orientation::Left) => (CubeCoord::new(last, c.y, CubeFace(4)), Orientation::Left),
+            (CubeFace(5), Orientation::Up) => (CubeCoord::new(c.x, last, CubeFace(3)), Orientation::Up),
             // face 6
-            (CubeFace(6), Orientation::Right) => {
-                (CubeCoord::new(c.y, last, CubeFace(5)), Orientation::Up)
-            }
-            (CubeFace(6), Orientation::Down) => {
-                (CubeCoord::new(c.x, 0, CubeFace(2)), Orientation::Down)
-            }
-            (CubeFace(6), Orientation::Left) => {
-                (CubeCoord::new(c.y, 0, CubeFace(1)), Orientation::Down)
-            }
-            (CubeFace(6), Orientation::Up) => {
-                (CubeCoord::new(c.x, last, CubeFace(4)), Orientation::Up)
-            }
+            (CubeFace(6), Orientation::Right) => (CubeCoord::new(c.y, last, CubeFace(5)), Orientation::Up),
+            (CubeFace(6), Orientation::Down) => (CubeCoord::new(c.x, 0, CubeFace(2)), Orientation::Down),
+            (CubeFace(6), Orientation::Left) => (CubeCoord::new(c.y, 0, CubeFace(1)), Orientation::Down),
+            (CubeFace(6), Orientation::Up) => (CubeCoord::new(c.x, last, CubeFace(4)), Orientation::Up),
             _ => panic!(),
         };
 
@@ -378,14 +256,9 @@ fn test_cubic_next_and_back() {
 
     for face in 1..=6 {
         let face = CubeFace(face);
-        for or in [
-            Orientation::Right,
-            Orientation::Left,
-            Orientation::Up,
-            Orientation::Down,
-        ]
-        .iter()
-        .copied()
+        for or in [Orientation::Right, Orientation::Left, Orientation::Up, Orientation::Down]
+            .iter()
+            .copied()
         {
             let (x, y) = match or {
                 Orientation::Right => (3, 2),
@@ -422,14 +295,9 @@ fn test_cubic_next_loop() {
 
     for face in 1..=6 {
         let face = CubeFace(face);
-        for or in [
-            Orientation::Right,
-            Orientation::Left,
-            Orientation::Up,
-            Orientation::Down,
-        ]
-        .iter()
-        .copied()
+        for or in [Orientation::Right, Orientation::Left, Orientation::Up, Orientation::Down]
+            .iter()
+            .copied()
         {
             let (x, y) = match or {
                 Orientation::Right => (3, 2),

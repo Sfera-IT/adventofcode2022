@@ -40,10 +40,7 @@ struct BridgeModel {
 
 impl BridgeModel {
     pub fn new(knots: usize) -> Self {
-        Self {
-            knots: vec![(0, 0); knots],
-            visited: HashSet::new(),
-        }
+        Self { knots: vec![(0, 0); knots], visited: HashSet::new() }
     }
 
     pub fn exec_move(&mut self, m: &Move) {
@@ -96,10 +93,7 @@ impl BridgeModel {
 }
 
 pub fn test1() {
-    let path = day9data::MOVES
-        .split(';')
-        .map(Move::parse)
-        .collect::<Vec<_>>();
+    let path = day9data::MOVES.split(';').map(Move::parse).collect::<Vec<_>>();
     let mut bridge = BridgeModel::new(2);
 
     for m in path.iter() {
@@ -110,10 +104,7 @@ pub fn test1() {
 }
 
 pub fn test2() {
-    let path = day9data::MOVES
-        .split(';')
-        .map(Move::parse)
-        .collect::<Vec<_>>();
+    let path = day9data::MOVES.split(';').map(Move::parse).collect::<Vec<_>>();
     let mut bridge = BridgeModel::new(10);
 
     for m in path.iter() {

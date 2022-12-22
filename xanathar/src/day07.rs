@@ -65,12 +65,7 @@ impl FsEntry {
             panic!("wtf");
         };
 
-        Self {
-            entries: Self::parse_dir_contents(lines),
-            name,
-            own_size: 0,
-            dir: true,
-        }
+        Self { entries: Self::parse_dir_contents(lines), name, own_size: 0, dir: true }
     }
 
     pub fn display(&self, identation: u32, f: &mut fmt::Formatter<'_>) -> fmt::Result {

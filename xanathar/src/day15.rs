@@ -12,11 +12,7 @@ pub struct Sensor {
 
 impl Sensor {
     pub fn new(pos: (i64, i64), beacon: (i64, i64)) -> Self {
-        Self {
-            pos,
-            beacon,
-            dist: (pos.0 - beacon.0).abs() + (pos.1 - beacon.1).abs(),
-        }
+        Self { pos, beacon, dist: (pos.0 - beacon.0).abs() + (pos.1 - beacon.1).abs() }
     }
 
     fn compatible_with_beacon(&self, x: i64, y: i64) -> bool {
@@ -73,29 +69,15 @@ pub fn test2() {
 }
 
 fn test2_on(sensors: &[Sensor], coord_max: i64, y: i64) {
-    let mut ranges = sensors
-        .iter()
-        .filter_map(|s| s.range_at_line(y))
-        .collect::<Vec<RangeInclusive<i64>>>();
+    let mut ranges =
+        sensors.iter().filter_map(|s| s.range_at_line(y)).collect::<Vec<RangeInclusive<i64>>>();
     let mut beacons = sensors
         .iter()
-        .filter_map(|s| {
-            if s.beacon.1 == y {
-                Some(s.beacon.0..=s.beacon.0)
-            } else {
-                None
-            }
-        })
+        .filter_map(|s| if s.beacon.1 == y { Some(s.beacon.0..=s.beacon.0) } else { None })
         .collect::<Vec<RangeInclusive<i64>>>();
     let mut sensors = sensors
         .iter()
-        .filter_map(|s| {
-            if s.pos.1 == y {
-                Some(s.pos.0..=s.pos.0)
-            } else {
-                None
-            }
-        })
+        .filter_map(|s| if s.pos.1 == y { Some(s.pos.0..=s.pos.0) } else { None })
         .collect::<Vec<RangeInclusive<i64>>>();
 
     ranges.append(&mut beacons);
