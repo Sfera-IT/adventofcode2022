@@ -28,9 +28,8 @@ mod utils;
 
 use utils::ansi_colors;
 
-fn main() {
-    let args: Vec<String> = std::env::args().collect();
-
+fn xmas_tree() {
+    #![allow(clippy::format_in_format_args)]
     println!(
         r"
         {}*{}
@@ -54,6 +53,12 @@ fn main() {
         ansi_colors::GREEN,
         ansi_colors::DEFAULT,
     );
+}
+
+fn main() {
+    let args: Vec<String> = std::env::args().collect();
+
+    xmas_tree();
 
     if args.len() < 2 {
         println!("Usage: <day+phase>");

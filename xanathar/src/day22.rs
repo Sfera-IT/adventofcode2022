@@ -115,7 +115,7 @@ impl Map {
     }
 
     #[allow(dead_code)]
-    #[cfg_attr(rustfmt, rustfmt_skip)]
+    #[rustfmt::skip]
     pub fn next_cubic_test(&self, c: CubeCoord, or: Orientation) -> (CubeCoord, Orientation) {
         let last = self.cube_size - 1;
 
@@ -130,7 +130,7 @@ impl Map {
             (Orientation::Left, x, y) => return (CubeCoord::new(x - 1, y, c.face), Orientation::Left),
         }
 
-        let flip = |c: usize| last - c;
+        let flip = |c| last - c;
 
         match (c.face, or) {
             // face 1
@@ -167,7 +167,7 @@ impl Map {
         }
     }
 
-    #[cfg_attr(rustfmt, rustfmt_skip)]
+    #[rustfmt::skip]
     pub fn next_cubic(&self, c: CubeCoord, or: Orientation) -> (CubeCoord, Orientation) {
         let last = self.cube_size - 1;
 
@@ -182,7 +182,7 @@ impl Map {
             (Orientation::Left, x, y) => return (CubeCoord::new(x - 1, y, c.face), Orientation::Left),
         }
 
-        let flip = |c: usize| last - c;
+        let flip = |c| last - c;
 
         let (new_c, new_or) = match (c.face, or) {
             // face 1
