@@ -134,8 +134,6 @@ impl Map {
                 any_moved = true;
             }
 
-            elf.mov = None;
-
             self.top_left.0 = cmp::min(self.top_left.0, elf.pos.0);
             self.top_left.1 = cmp::min(self.top_left.1, elf.pos.1);
             self.bottom_right.0 = cmp::max(self.bottom_right.0, elf.pos.0);
