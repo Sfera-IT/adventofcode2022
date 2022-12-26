@@ -31,48 +31,31 @@ pub fn encode_snafu(mut num: i64) -> String {
 
     let mut i = 0;
 
-    loop {
-        if i >= base5rev.len() {
-            break;
-        }
+    while i < base5rev.len() {
+        if base5rev[i] >= 3 {
+            if i == base5rev.len() - 1 {
+                base5rev.push(0);
+            }
 
-        if base5rev[i] < 3 {
-            i += 1;
-            continue;
-        }
-
-        if i == base5rev.len() - 1 {
-            base5rev.push(0);
-        }
-
-        if base5rev[i] == 3 {
             base5rev[i + 1] += 1;
-            base5rev[i] = -2;
-        } else if base5rev[i] == 4 {
-            base5rev[i + 1] += 1;
-            base5rev[i] = -1;
-        } else if base5rev[i] == 5 {
-            base5rev[i + 1] += 1;
-            base5rev[i] = 0;
+            base5rev[i] -= 5;
         }
 
         i += 1;
     }
 
-    let mut snafu = String::new();
-
-    for i in (0..base5rev.len()).rev() {
-        snafu.push(match base5rev[i] {
+    base5rev
+        .iter()
+        .rev()
+        .map(|d| match d {
             0 => '0',
             1 => '1',
             2 => '2',
             -1 => '-',
             -2 => '=',
             c => panic!("{}", c),
-        });
-    }
-
-    snafu
+        })
+        .collect()
 }
 
 #[cfg(test)]
