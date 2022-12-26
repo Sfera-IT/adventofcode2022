@@ -26,23 +26,3 @@ Or to run all the tests of December 19th:
 ```
 cargo run -- 19a 19b
 ```
-
-
-# How to run C# days
-
-Go inside the `cs` directory, then run with:
-
-```
-dotnet run -- <testname>
-```
-
-Where `<testname>` is `1a`, `1b`, `2a`, `2b`... `25a`, `25b`.
-
-For example to run the second test of December 19th:
-
-```
-dotnet run -- 19b
-```
-
-
-
